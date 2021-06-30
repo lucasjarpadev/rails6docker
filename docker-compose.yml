@@ -1,0 +1,31 @@
+version: "3.1"
+
+services: 
+    db:
+        image: postgres:12
+        volumes: 
+            - db_data:/var/lib/postgresql/data
+
+        environment: 
+            POSTGRES_DB: myapp_development
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        
+    app:
+        build: .
+        volumes: 
+            - .:/home/homeland/railsapp
+        ports: 
+            - "3000:3000"
+        depends_on: 
+            - db
+        environment:
+            POSTGRES_DB: myapp_development
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        
+    
+volumes: 
+    db_data:
+
+
